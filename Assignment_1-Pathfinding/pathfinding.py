@@ -24,7 +24,9 @@ A* with at least two different heuristics.
 closed_list =[]
 open_list =[]
 
+# returns a goal node or continues until goal node is found
 def breadthFirst():
+
    pass
 def lowestCost():
    pass

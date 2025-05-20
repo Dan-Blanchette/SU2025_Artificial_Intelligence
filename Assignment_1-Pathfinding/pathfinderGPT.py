@@ -68,9 +68,16 @@ class BFSPathFinder:
         return None
 
     def mark_path(self, path):
+        # Mark the actual path with '.'
         for r, c in path:
             if self.grid[r][c] == '0':
                 self.grid[r][c] = '.'
+
+    def mark_explored(self):
+        # Mark explored (checked) nodes with '*', preserving path (.)
+        for r, c in self.closed_list:
+            if self.grid[r][c] == '0':
+                self.grid[r][c] = '*'
 
     def print_grid(self):
         for row in self.grid:
@@ -90,6 +97,27 @@ class BFSPathFinder:
         print(f"{'A* (Heuristic 1)':<25} {'-':<10} {'-':<10} {'-':<12} {'-'}")
         print(f"{'A* (Heuristic 2)':<25} {'-':<10} {'-':<10} {'-':<12} {'-'}")
 
+    def write_output(self, filename="output.txt"):
+        with open(filename, 'w') as f:
+            f.write("=== Final Grid with Path and Explored States ===\n")
+            for row in self.grid:
+                f.write(''.join(row) + '\n')
+
+            f.write("\n=== Legend ===\n")
+            f.write("S = Start\n")
+            f.write("E = End\n")
+            f.write("0 = Unvisited walkable space\n")
+            f.write("1 = Wall/blocked cell\n")
+            f.write("'.' = Final path from S to E\n")
+            f.write("'*' = Explored during BFS\n")
+
+            f.write("\n=== Pathfinding Summary ===\n")
+            f.write(f"Algorithm: BFS\n")
+            f.write(f"Path Length: {self.path_length}\n")
+            f.write(f"Path Cost: {self.path_cost}\n")
+            f.write(f"Nodes Explored: {len(self.closed_list)}\n")
+            f.write(f"Remaining in Queue: {len(self.open_list)}\n")
+
 
 # === Run the pathfinding ===
 if __name__ == "__main__":
@@ -98,9 +126,16 @@ if __name__ == "__main__":
 
     if path:
         print(f" Path found! Length: {len(path)}")
-        solver.mark_path(path)
+        solver.mark_path(path)         # Mark path first
+        solver.mark_explored()         # Then mark explored
         solver.print_grid()
         solver.print_stats()
     else:
         print(" No path found.")
+        solver.mark_explored()
+        solver.print_grid()
         solver.print_stats()
+
+    # Export everything to file
+    solver.write_output("BFS_output.txt")
+    print("\nGrid with legend and stats written to 'output.txt'")

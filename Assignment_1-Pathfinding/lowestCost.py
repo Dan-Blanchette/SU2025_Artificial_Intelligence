@@ -23,7 +23,7 @@ def run(filepath):
                 parent[neighbor] = current
 
     result = reconstruct("Dijkstra (Lowest Cost)", g, parent, closed, open_heap)
-    write_output(g.grid, result['path'], closed, "dijkstra_output.txt")
+    write_output(g.grid, result['path'], closed, "lowestCost_output.txt")
     return result
 
 # Reconstruct and utilities same as in bfs.py

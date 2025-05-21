@@ -1,6 +1,7 @@
 from collections import deque  # Used for fast FIFO queue in BFS
 
 class BFSPathFinder:
+    # === Member Function Block ===
     def __init__(self, filepath):
         # === Load the map/grid from a file ===
         with open(filepath, 'r') as f:
@@ -132,8 +133,9 @@ class BFSPathFinder:
             f.write(f"Remaining in Queue: {len(self.open_list)}\n")
 
 
-# === New function to encapsulate main logic ===
+# === Function Block ===
 def run_bfs(filepath="pathFindingMap.txt"):
+    # create an instance of the BFS class
     solver = BFSPathFinder(filepath)
     path = solver.search()
 

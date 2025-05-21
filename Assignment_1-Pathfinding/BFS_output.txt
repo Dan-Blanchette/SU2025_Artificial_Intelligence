@@ -44,13 +44,6 @@
 S = Start
 E = End
 0 = Unvisited walkable space
-1 = Wall/blocked cell
+X = Wall/blocked cell
 '.' = Final path from S to E
-'*' = Explored during BFS
-
-=== Pathfinding Summary ===
-Algorithm: BFS
-Path Length: 29
-Path Cost: 28
-Nodes Explored: 733
-Remaining in Queue: 39
+'*' = Explored during search

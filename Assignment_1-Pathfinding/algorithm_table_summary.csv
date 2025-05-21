@@ -1,0 +1,6 @@
+Algorithm,Path Length,Path Cost,States Explored,States Remaining
+BFS,29,28,733,39
+Dijkstra (Lowest Cost),29,28,755,42
+Greedy Best-First (Manhattan),33,32,148,64
+A* (Manhattan),29,28,164,38
+A* (Euclidean),29,28,217,44

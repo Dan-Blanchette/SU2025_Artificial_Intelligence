@@ -11,11 +11,7 @@ venv/
 .env
 .env.*
 
-# Output and log files
-*.log
-*.out
-*.txt
-*.csv
+
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/

@@ -5,15 +5,9 @@
 from collections import deque  # for BFS queue
 import heapq                   # for priority queue in Dijkstra, A*, and Greedy
 import math                    # for Euclidean heuristic
-# Write additional table as CSV with full metrics including remaining open states
-import csv
+import csv                     # to export performance data
 
 class BFSPathFinder:
-    """
-    Implements multiple pathfinding algorithms—BFS, Dijkstra, Greedy Best-First Search,
-    and A*—on a 2D grid loaded from a text file. Supports path visualization, cost tracking,
-    and search space statistics.
-    """
     def __init__(self, filepath):
         with open(filepath, 'r') as f:
             self.grid = [list(line.strip()) for line in f if line.strip()]
@@ -51,7 +45,7 @@ class BFSPathFinder:
         return 1 if self.grid[r][c] in ['0', 'E'] else float('inf')
 
     def search(self):
-        self.open_list.append(self.start)
+        self.open_list = deque([self.start])
         while self.open_list:
             current = self.open_list.popleft()
             self.closed_list.add(current)
@@ -64,11 +58,16 @@ class BFSPathFinder:
         return None
 
     def dijkstra(self):
+        self.open_list = []
         open_heap = [(0, self.start)]
         cost_so_far = {self.start: 0}
         self.parent = {}
         self.closed_list = set()
+
         while open_heap:
+            heapq.heapify(open_heap)
+            self.open_list = list(open_heap)
+
             current_cost, current = heapq.heappop(open_heap)
             if current in self.closed_list:
                 continue
@@ -91,12 +90,18 @@ class BFSPathFinder:
         return math.hypot(a[0] - b[0], a[1] - b[1])
 
     def greedy_best_first(self, heuristic='manhattan'):
+        self.open_list = []
         open_heap = []
         self.parent = {}
         self.closed_list = set()
         h_func = self.manhattan if heuristic == 'manhattan' else self.euclidean
+
         heapq.heappush(open_heap, (h_func(self.start, self.end), self.start))
+
         while open_heap:
+            heapq.heapify(open_heap)
+            self.open_list = list(open_heap)
+
             _, current = heapq.heappop(open_heap)
             if current in self.closed_list:
                 continue
@@ -110,14 +115,20 @@ class BFSPathFinder:
         return None
 
     def a_star(self, heuristic='manhattan'):
+        self.open_list = []
         open_heap = []
         self.parent = {}
         self.closed_list = set()
         g_cost = {self.start: 0}
         h_func = self.manhattan if heuristic == 'manhattan' else self.euclidean
+
         f_start = h_func(self.start, self.end)
         heapq.heappush(open_heap, (f_start, self.start))
+
         while open_heap:
+            heapq.heapify(open_heap)
+            self.open_list = list(open_heap)
+
             _, current = heapq.heappop(open_heap)
             if current in self.closed_list:
                 continue
@@ -188,13 +199,8 @@ class BFSPathFinder:
 
 # === Unified Runner for All Algorithms ===
 def run_all_algorithms(filepath="pathFindingMap.txt"):
-    """
-    Executes all implemented search algorithms (BFS, Dijkstra, Greedy Best-First, A*)
-    on the provided grid file. Each algorithm's path and explored nodes are marked,
-    and a comprehensive performance summary is printed to the console and written
-    to an output file.
-    """
     summary = []
+    solvers = {}
 
     def run_method(name, method_func):
         solver = BFSPathFinder(filepath)
@@ -210,22 +216,13 @@ def run_all_algorithms(filepath="pathFindingMap.txt"):
             "Cost": solver.path_cost if path else "-",
             "Explored": len(solver.closed_list)
         })
+        solvers[name] = solver
 
-    def bfs_runner(s):
-        return s.search()
-    run_method("BFS", bfs_runner)
-    def dijkstra_runner(s):
-        return s.dijkstra()
-    run_method("Dijkstra (Lowest Cost)", dijkstra_runner)
-    def greedy_manhattan_runner(s):
-        return s.greedy_best_first("manhattan")
-    run_method("Greedy Best-First (Manhattan)", greedy_manhattan_runner)
-    def a_star_manhattan_runner(s):
-        return s.a_star("manhattan")
-    run_method("A* (Manhattan)", a_star_manhattan_runner)
-    def a_star_euclidean_runner(s):
-        return s.a_star("euclidean")
-    run_method("A* (Euclidean)", a_star_euclidean_runner)
+    run_method("BFS", lambda s: s.search())
+    run_method("Dijkstra (Lowest Cost)", lambda s: s.dijkstra())
+    run_method("Greedy Best-First (Manhattan)", lambda s: s.greedy_best_first("manhattan"))
+    run_method("A* (Manhattan)", lambda s: s.a_star("manhattan"))
+    run_method("A* (Euclidean)", lambda s: s.a_star("euclidean"))
 
     print("\n=== Pathfinding Summary (All Algorithms) ===")
     print(f"{'Algorithm':<30} {'Path Len':<10} {'Cost':<10} {'Explored':<12}")
@@ -237,28 +234,19 @@ def run_all_algorithms(filepath="pathFindingMap.txt"):
     solver.write_output("summary_output.txt", summary)
     print("Summary written to 'summary_output.txt'")
 
-
     with open("algorithm_table_summary.csv", "w", newline="") as csvfile:
         writer = csv.writer(csvfile)
         writer.writerow(["Algorithm", "Path Length", "Path Cost", "States Explored", "States Remaining"])
         for row in summary:
-            solver = BFSPathFinder(filepath)
-            method = {
-                "BFS": bfs_runner,
-                "Dijkstra (Lowest Cost)": dijkstra_runner,
-                "Greedy Best-First (Manhattan)": greedy_manhattan_runner,
-                "A* (Manhattan)": a_star_manhattan_runner,
-                "A* (Euclidean)": a_star_euclidean_runner
-            }[row["Algorithm"]]
-            method(solver)
+            solver = solvers[row["Algorithm"]]
+            remaining = len(solver.open_list)
             writer.writerow([
                 row['Algorithm'],
                 row['Path Len'],
                 row['Cost'],
                 row['Explored'],
-                len(solver.open_list)
+                remaining
             ])
 
-# === Entry Point ===
 if __name__ == "__main__":
     run_all_algorithms()

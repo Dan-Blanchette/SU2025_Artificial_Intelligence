@@ -16,7 +16,7 @@ def run_all(filepath):
     for row in results:
         print(f"{row['name']:<30} {len(row['path']):<10} {row['cost']:<10} {row['explored']:<12} {row['remaining']:<12}")
 
-    with open("summary.csv", "w", newline="") as f:
+    with open("algorithm_summary.csv", "w", newline="") as f:
         writer = csv.writer(f)
         writer.writerow(["Algorithm", "Path Len", "Cost", "Explored", "Remaining"])
         for row in results:

@@ -1,0 +1,6 @@
+Algorithm,Path Len,Cost,Explored,Remaining
+BFS,29,28,733,39
+Dijkstra (Lowest Cost),29,28,755,41
+Greedy Best-First (Manhattan),33,32,148,63
+A* (Manhattan),29,28,164,37
+A* (Euclidean),29,28,217,43

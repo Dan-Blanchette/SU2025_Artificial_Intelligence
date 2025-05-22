@@ -2,7 +2,7 @@
 import bfs, lowestCost, greedy, aStar
 import csv
 
-def run_all(filepath):
+def main(filepath):
     results = [
         bfs.bfs(filepath),
         lowestCost.run(filepath),
@@ -23,4 +23,4 @@ def run_all(filepath):
             writer.writerow([row['name'], len(row['path']), row['cost'], row['explored'], row['remaining']])
 
 if __name__ == "__main__":
-    run_all("pathFindingMap.txt")
+    main("pathFindingMap.txt")

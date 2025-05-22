@@ -1,4 +1,4 @@
-Algorithm,Path Len,Cost,Explored,Remaining
+Algorithm,Path Len,Cost,Closed List,Open List Remaining
 BFS,29,28,733,39
 Dijkstra (Lowest Cost),29,28,755,41
 Greedy Best-First (Manhattan),33,32,148,63

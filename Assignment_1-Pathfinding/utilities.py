@@ -1,3 +1,9 @@
+# Assignment #1 Pathfinding
+# Author: Dan Blanchette
+# Date: 5-22-25
+# Sources: OpenAI ChatGPT40, GeeksforGeeks.com, Stackoverflow.com, YouTube.com
+
+
 # algorithms/base.py
 import math
 

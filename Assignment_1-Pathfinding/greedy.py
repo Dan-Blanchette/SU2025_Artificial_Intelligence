@@ -1,3 +1,8 @@
+# Assignment #1 Pathfinding
+# Author: Dan Blanchette
+# Date: 5-22-25
+# Sources: OpenAI ChatGPT40, GeeksforGeeks.com, Stackoverflow.com, YouTube.com
+
 import heapq
 from utilities import Grid
 
@@ -37,7 +42,7 @@ def run(filepath, heuristic='manhattan'):
 
     # Output file naming
     name = f"Greedy Best-First ({heuristic.title()})"
-    filename = f"greedy_{heuristic.lower()}_output.txt"
+    filename = f"greedy_best_first_output.txt"
 
     # Reconstruct and save output
     result = reconstruct(name, g, parent, closed, open_heap)

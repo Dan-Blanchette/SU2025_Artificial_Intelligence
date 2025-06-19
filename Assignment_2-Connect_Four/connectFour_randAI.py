@@ -1,3 +1,12 @@
+# Author: Dan Blanchette
+# Class: AI - Dr.Soule CS 570
+# Date: 6-19-25
+# Credits/Sources:
+# https://www.geeksforgeeks.org/dsa/finding-optimal-move-in-tic-tac-toe-using-minimax-algorithm-in-game-theory/ 
+# https://www.geeksforgeeks.org/dsa/minimax-algorithm-in-game-theory-set-4-alpha-beta-pruning/
+# ChatGPT for debugging and explainations
+
+
 import random
 
 ROWS = 6

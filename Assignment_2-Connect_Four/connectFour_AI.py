@@ -37,7 +37,10 @@ class ConnectFourGame:
             if row[column] == EMPTY:
                 row[column] = piece
                 return
-
+            
+    # Used by the agent to determine the best path to the goal
+    # by "undoing" a move if traversal scoring during the DFS is 
+    # not on the optimal branch.
     def undo_move(self, column):
         # Remove the topmost piece from the specified column
         for row in self.board:
@@ -47,18 +50,24 @@ class ConnectFourGame:
 
     def check_winner(self, piece):
         # Check for 4-in-a-row horizontally, vertically, and diagonally
+        # Row check
         for row in range(ROWS):
             for col in range(COLUMNS - 3):
                 if all(self.board[row][col + i] == piece for i in range(4)):
                     return True
+                
+        # Horizontal check
         for col in range(COLUMNS):
             for row in range(ROWS - 3):
                 if all(self.board[row + i][col] == piece for i in range(4)):
                     return True
+
+        # Pos Diagonal Direction       
         for row in range(ROWS - 3):
             for col in range(COLUMNS - 3):
                 if all(self.board[row + i][col + i] == piece for i in range(4)):
                     return True
+        # Neg Diagonal Direction
         for row in range(3, ROWS):
             for col in range(COLUMNS - 3):
                 if all(self.board[row - i][col + i] == piece for i in range(4)):
@@ -107,8 +116,6 @@ class HumanPlayer(Player):
 class MinimaxComputerPlayer(Player):
     def get_move(self, game):
         # Use the minimax algorithm to choose the best move
-        # Debug print to trace AI move decision
-        # print("AI thinking...")
         _, column = self.minimax(game, MAX_DEPTH, -math.inf, math.inf, True)
         print(f"Computer ({self.piece}) chooses column {column}")
         return column

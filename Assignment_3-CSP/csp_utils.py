@@ -41,4 +41,4 @@ def visualize_coloring(graph, assignment, title):
     plt.figure(figsize=(10, 10))
     nx.draw(G, pos, with_labels=True, node_color=node_colors, node_size=600, font_size=8)
     plt.title(title)
-    plt.show()
+    plt.savefig(f"Fig_Data {title}")

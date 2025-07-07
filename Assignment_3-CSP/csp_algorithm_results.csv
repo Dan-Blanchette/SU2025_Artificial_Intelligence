@@ -1,11 +1,11 @@
 Algorithm,Colors,Success,Time (s),Steps
-Hill Climbing,2,False,0.203401,10000
-Hill Climbing,3,True,0.001369,≤ 10000
-Hill Climbing,4,True,0.00579,≤ 10000
-Hill Climbing,5,True,0.001794,≤ 10000
-Hill Climbing,6,True,0.000782,≤ 10000
-Min-Conflicts,2,False,0.249628,10000
-Min-Conflicts,3,True,0.000432,≤ 10000
-Min-Conflicts,4,True,0.000255,≤ 10000
-Min-Conflicts,5,True,0.000429,≤ 10000
-Min-Conflicts,6,True,0.000323,≤ 10000
+Hill Climbing,2,False,0.108645,10000
+Hill Climbing,3,False,0.135229,10000
+Hill Climbing,4,True,0.000533,≤ 10000
+Hill Climbing,5,True,0.000594,≤ 10000
+Hill Climbing,6,True,9.8e-05,≤ 10000
+Min-Conflicts,2,False,0.13738,10000
+Min-Conflicts,3,True,0.000126,≤ 10000
+Min-Conflicts,4,True,0.000218,≤ 10000
+Min-Conflicts,5,True,0.000156,≤ 10000
+Min-Conflicts,6,True,6.8e-05,≤ 10000

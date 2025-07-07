@@ -12,7 +12,7 @@ csp-env/
 .env
 .env.*
 
-
+*.zip
 
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/

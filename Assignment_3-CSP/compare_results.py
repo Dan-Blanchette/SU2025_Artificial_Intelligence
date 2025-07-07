@@ -6,7 +6,7 @@ import pandas as pd
 
 graph = load_graph()
 
-def run_algorithm(name, algorithm, max_colors=6, max_steps=10000):
+def run_algorithm(name, algorithm, max_colors=10, max_steps=10000):
     results = []
 
     for k in range(2, max_colors + 1):
@@ -25,7 +25,7 @@ def run_algorithm(name, algorithm, max_colors=6, max_steps=10000):
             "Algorithm": name,
             "Colors": k,
             "Success": success,
-            "Time (s)": round(end - start, 6),
+            "Time (s)": round(end - start, 10),
             "Steps": max_steps if not success else "≤ " + str(max_steps)
         })
 

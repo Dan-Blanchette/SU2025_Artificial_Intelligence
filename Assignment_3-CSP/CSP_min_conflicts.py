@@ -40,8 +40,7 @@ def min_conflicts(graph, num_colors, max_steps=10000):
     # If no solution is found within the allowed steps, return None
     return None
 
-# Run the algorithm if the script is executed directly
-if __name__ == "__main__":
+def main():
     graph = load_graph()  # Load the graph from the utility function
     for k in range(2, 11):  # Try from 2 to 10 colors
         result = min_conflicts(graph, k)
@@ -49,3 +48,7 @@ if __name__ == "__main__":
             print(f"Min-Conflicts: Solved with {k} colors.")
             visualize_coloring(graph, result, f"Min-Conflicts: {k} Colors")  # Show the result
             break  # Stop when a valid coloring is found
+
+# Run the algorithm if the script is executed directly
+if __name__ == "__main__":
+    main()

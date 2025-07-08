@@ -35,10 +35,20 @@ def visualize_coloring(graph, assignment, title):
     for var in graph:
         for neighbor in graph[var]:
             G.add_edge(var, neighbor)
+
     pos = nx.circular_layout(G)
     cmap = plt.cm.get_cmap('tab10', max(assignment.values()) + 1)
     node_colors = [cmap(assignment[node]) for node in G.nodes]
+
     plt.figure(figsize=(10, 10))
     nx.draw(G, pos, with_labels=True, node_color=node_colors, node_size=600, font_size=8)
     plt.title(title)
-    plt.savefig(f"Fig_Data {title}")
+
+    #  Sanitize filename
+    safe_title = title.replace(":", "-").replace(" ", "_")
+    filename = f"Fig_Data_{safe_title}.png"
+
+    #  Save and close the figure
+    plt.savefig(filename)
+    print(f"Figure saved as {filename}")
+    plt.close()
